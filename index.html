@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADN, Genes y su Importancia en la Práctica de Enfermería | UCCuyo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f1f6eb',
+                            100: '#e3edcf',
+                            200: '#c7dba0',
+                            300: '#abc971',
+                            400: '#8eb742',
+                            500: '#436600',
+                            600: '#395700',
+                            700: '#2f4700',
+                            800: '#253800',
+                            900: '#1a2800'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+        /* Paleta Institucional UCCuyo (Verde Oliva) */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+
+        .focus-accent:focus {
+            border-color: #436600;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 102, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        button.bg-accent span {
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .card-hover {
+            transition: all 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(67, 102, 0, 0.12);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    CB
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-wide uppercase">ADN, GENES Y GENÉTICA EN ENFERMERÍA</h1>
+                    <p class="text-xs text-gray-500 font-semibold">Ciencias Biológicas en Salud (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Botón Guía de Uso -->
+                <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Guía de Uso
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal con navegación lateral -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Menú de Navegación Lateral (5 Módulos Formativos Puros) -->
+        <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+            <button onclick="switchTab('tab-inicio')" id="btn-tab-inicio" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs">
+                <i class="fa-solid fa-compass text-sm"></i>
+                <span>Presentación General</span>
+            </button>
+            <button onclick="switchTab('tab-mod1')" id="btn-tab-mod1" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-notes-medical text-sm text-[#436600]"></i>
+                <span>1. Genética en Enfermería</span>
+            </button>
+            <button onclick="switchTab('tab-mod2')" id="btn-tab-mod2" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-dna text-sm text-[#436600]"></i>
+                <span>2. Molécula Maestra y ADN</span>
+            </button>
+            <button onclick="switchTab('tab-mod3')" id="btn-tab-mod3" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-link text-sm text-[#436600]"></i>
+                <span>3. Complementariedad</span>
+            </button>
+            <button onclick="switchTab('tab-mod4')" id="btn-tab-mod4" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-microscope text-sm text-[#436600]"></i>
+                <span>4. ¿Qué es un Gen?</span>
+            </button>
+            <button onclick="switchTab('tab-mod5')" id="btn-tab-mod5" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-table-list text-sm text-[#436600]"></i>
+                <span>5. Síntesis y Laboratorio</span>
+            </button>
+
+            <!-- Tarjeta lateral de relevancia clínica -->
+            <div class="hidden lg:block mt-4 pt-3 border-t border-gray-100 bg-[#f1f6eb]/70 p-3 rounded-xl border border-[#436600]/20 text-xs text-slate-700 space-y-1">
+                <div class="font-bold text-[#436600] flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                    <i class="fa-solid fa-user-nurse"></i> Relevancia Clínica
+                </div>
+                <p class="leading-relaxed text-gray-600 text-[11.5px]">
+                    El ADN no es solo teoría molecular: codifica la insulina, hemoglobina y anticuerpos, y fundamenta la detección temprana de riesgos hereditarios en enfermería.
+                </p>
+            </div>
+        </nav>
+
+        <!-- Contenedores de Sección -->
+        <div class="flex-1 overflow-hidden">
+
+            <!-- PESTAÑA 0: PRESENTACIÓN GENERAL -->
+            <div id="tab-inicio" class="tab-content active space-y-6">
+                <!-- Banner de Bienvenida -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-brand-50 text-9xl font-black pointer-events-none select-none">
+                        <i class="fa-solid fa-dna opacity-40"></i>
+                    </div>
+                    <div class="relative z-10 max-w-2xl">
+                        <span class="inline-flex items-center gap-1.5 bg-brand-100 text-[#436600] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
+                            <i class="fa-solid fa-microscope"></i> Biología Molecular y Genética Humana
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight mb-3">
+                            El Código de la Vida: Del Nucleótido al Juicio Clínico en Salud
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                            Bienvenido al simulador oficial de <strong>Ciencias Biológicas en Salud</strong> para el curso de ingreso a la Licenciatura en Enfermería de la <strong>Universidad Católica de Cuyo</strong>. Este entorno organiza de manera sistemática la arquitectura del ADN, la regla de complementariedad bioquímica, la función de los genes y la aplicación práctica de la herencia en la anamnesis hospitalaria y la atención personalizada.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="switchTab('tab-mod1')" class="bg-[#436600] hover:bg-[#324d00] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                                <span>Iniciar Módulo 1: Genética en Enfermería</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('tab-mod3')" class="bg-brand-50 hover:bg-brand-100 text-[#436600] border border-brand-200 text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                                <i class="fa-solid fa-flask-vial"></i>
+                                <span>Ir al Ensamblador de Hebras</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen de los 5 Módulos del Simulador -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tab-mod1')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:border-brand-400 hover:shadow-md transition cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1 group-hover:text-[#436600] transition">1. Genética en Enfermería</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Definición de herencia y variabilidad, recolección del árbol familiar en admisiones, educación al paciente y cuidados personalizados.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod2')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:border-brand-400 hover:shadow-md transition cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-dna"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1 group-hover:text-[#436600] transition">2. Molécula Maestra y ADN</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Estructura del nucleótido (fosfato, desoxirribosa, bases A, T, C, G), síntesis de insulina, hemoglobina, anticuerpos y ATP celular.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod3')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:border-brand-400 hover:shadow-md transition cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center text-lg mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1 group-hover:text-[#436600] transition">3. Complementariedad</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Apareamiento estricto A-T (2 puentes H) y C-G (3 puentes H), replicación celular fiel y simulador interactivo de hebras en tiempo real.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod4')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:border-brand-400 hover:shadow-md transition cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center text-lg mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1 group-hover:text-[#436600] transition">4. ¿Qué es un Gen?</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Metáfora del libro y la receta biológica, selector interactivo de genes clínicos y su impacto patológico en la atención de enfermería.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod5')" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:border-brand-400 hover:shadow-md transition cursor-pointer group md:col-span-2 lg:col-span-2">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-lg mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-table-list"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-1 group-hover:text-[#436600] transition">5. Síntesis Disciplinar y Laboratorio de Admisión</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed">Matriz de biología molecular, análisis guiado de un caso real de cardiopatía prematura en el árbol familiar y decálogo ético.</p>
+                    </div>
+                </div>
+
+                <!-- Eje de Competencias del Aspirante de Enfermería -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                    <h3 class="font-bold text-gray-900 text-base mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-[#436600]"></i>
+                        Objetivos de Aprendizaje para el Ingresante a Enfermería
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Anamnesis Familiar</span>
+                            Recoger con rigor los antecedentes patológicos en padres y hermanos durante la admisión hospitalaria para detectar riesgos hereditarios tempranos.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Bases Moleculares</span>
+                            Comprender la complementariedad y la síntesis de proteínas para fundamentar el rol de la insulina, la anemia y el sistema inmune.
+                        </div>
+                        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                            <span class="font-bold text-[#436600] block mb-1 text-sm">Cuidado Humanizado</span>
+                            Brindar contención ética, educación preventiva y respeto a la intimidad, desterrando el fatalismo ante predisposiciones genéticas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 1: MÓDULO 1: GENÉTICA EN ENFERMERÍA -->
+            <div id="tab-mod1" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 1</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">Introducción a la Genética en la Práctica de Enfermería</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1 self-start sm:self-auto">
+                            Siguiente Módulo <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        La <strong>genética</strong> es la rama de las ciencias biológicas que investiga los mecanismos de la <strong>herencia</strong> (transmisión de caracteres biológicos de progenitores a descendientes) y la <strong>variabilidad</strong> que nos hace únicos a nivel individual y poblacional. En la práctica asistencial de enfermería, comprender la base genética de la salud y la enfermedad es un pilar fundamental para brindar un cuidado integral y seguro.
+                    </p>
+
+                    <!-- Comparativa en Tarjetas Paralelas -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-slate-50/80 border border-gray-200 rounded-2xl p-5 card-hover">
+                            <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center text-lg mb-3">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-2">1. Valoración de Riesgos</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Identificación temprana de antecedentes familiares patológicos en la anamnesis (diabetes, cardiopatías tempranas, neoplasias), confección rigurosa del árbol genealógico y derivación oportuna.
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50/80 border border-gray-200 rounded-2xl p-5 card-hover">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg mb-3">
+                                <i class="fa-solid fa-hands-holding-child"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-2">2. Educación y Apoyo</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Acompañamiento empático y orientación científica a pacientes y familias que enfrentan diagnósticos genéticos, reduciendo la ansiedad y desterrando culpas infundadas sobre la herencia.
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50/80 border border-gray-200 rounded-2xl p-5 card-hover">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-lg mb-3">
+                                <i class="fa-solid fa-hospital-user"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-2">3. Atención Personalizada</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Diseño de planes de cuidados adaptados al perfil individual (farmacogenética básica, tolerancia a tratamientos, medidas preventivas de estilo de vida frente a la carga hereditaria).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 border-l-4 border-[#436600] p-4 rounded-r-xl">
+                        <div class="flex">
+                            <div class="shrink-0"><i class="fa-solid fa-lightbulb text-[#436600] text-xl"></i></div>
+                            <div class="ml-3">
+                                <h4 class="text-sm font-semibold text-gray-900">Perspectiva Clínica UCCuyo</h4>
+                                <p class="text-xs text-gray-700 mt-1 leading-relaxed">
+                                    El enfermero actúa como el nexo principal entre el equipo médico y el paciente, siendo clave en la recolección fidedigna del árbol genealógico en la admisión. Una anamnesis familiar exhaustiva permite anticipar descompensaciones y promover estilos de vida saludables.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 2: MÓDULO 2: ARQUITECTURA DEL ADN -->
+            <div id="tab-mod2" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 2</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">La Molécula Maestra y su Arquitectura: ADN y Nucleótidos</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1 self-start sm:self-auto">
+                            Siguiente Módulo <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        El <strong>Ácido Desoxirribonucleico (ADN)</strong> se localiza principalmente en el núcleo celular. Funciona como una estructura activa que contiene el manual de instrucciones exacto para el funcionamiento, crecimiento, desarrollo y reproducción del organismo humano.
+                    </p>
+
+                    <!-- Componentes y Abecedario Biológico -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-gray-200">
+                            <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2 text-sm">
+                                <i class="fa-solid fa-cubes text-blue-700"></i> Componentes del Nucleótido
+                            </h3>
+                            <p class="text-xs text-gray-600 mb-4">
+                                Cada cadena de ADN está formada por unidades estructurales repetitivas llamadas <strong>nucleótidos</strong>, compuestos por tres partes esenciales:
+                            </p>
+                            <ul class="space-y-2 text-xs text-gray-700">
+                                <li class="bg-white p-3 rounded-xl border border-gray-200 flex items-center justify-between shadow-2xs">
+                                    <span class="font-semibold text-gray-900">1. Grupo Fosfato</span>
+                                    <span class="text-gray-500 text-[11px]">Estructura de soporte y esqueleto fosfodiéster</span>
+                                </li>
+                                <li class="bg-white p-3 rounded-xl border border-gray-200 flex items-center justify-between shadow-2xs">
+                                    <span class="font-semibold text-gray-900">2. Azúcar Desoxirribosa</span>
+                                    <span class="text-gray-500 text-[11px]">Pentosa constituyente del esqueleto</span>
+                                </li>
+                                <li class="bg-white p-3 rounded-xl border border-gray-200 flex items-center justify-between shadow-2xs">
+                                    <span class="font-semibold text-gray-900">3. Base Nitrogenada</span>
+                                    <span class="text-[#436600] font-bold">A, T, C, G (El código portador)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-gray-200 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-font text-emerald-700"></i> El Abecedario Biológico Universal
+                                </h3>
+                                <p class="text-xs text-gray-600 mb-4">
+                                    La información genética se escribe combinando solo cuatro letras químicas (bases nitrogenadas):
+                                </p>
+                                <div class="grid grid-cols-2 gap-3 text-center">
+                                    <div class="bg-white p-3 rounded-xl border border-gray-200 shadow-2xs">
+                                        <div class="text-lg font-bold text-blue-700 font-mono">A</div>
+                                        <div class="text-xs text-gray-600">Adenina</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-gray-200 shadow-2xs">
+                                        <div class="text-lg font-bold text-emerald-700 font-mono">T</div>
+                                        <div class="text-xs text-gray-600">Timina</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-gray-200 shadow-2xs">
+                                        <div class="text-lg font-bold text-amber-700 font-mono">C</div>
+                                        <div class="text-xs text-gray-600">Citosina</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-gray-200 shadow-2xs">
+                                        <div class="text-lg font-bold text-rose-700 font-mono">G</div>
+                                        <div class="text-xs text-gray-600">Guanina</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-600 bg-white p-2.5 rounded-xl">
+                                <i class="fa-solid fa-bolt text-amber-600 mr-1"></i> El <strong>ATP (Adenosín Trifosfato)</strong> es un nucleótido modificado que funciona como el motor energético celular universal.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Proteínas Esenciales en la Clínica -->
+                    <div class="bg-[#f1f6eb]/80 border border-[#436600]/20 p-5 rounded-2xl">
+                        <h3 class="font-bold text-sm mb-2 text-[#436600] flex items-center gap-2">
+                            <i class="fa-solid fa-vial-circle-check"></i> Proteínas Esenciales y Rol Clínico en Enfermería
+                        </h3>
+                        <p class="text-xs text-gray-700 mb-4">
+                            Las instrucciones del ADN se traducen en proteínas que ejecutan funciones vitales en el organismo humano:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-2xs">
+                                <div class="font-bold text-emerald-800 mb-1">Insulina</div>
+                                <p class="text-gray-600">Regulación de la glucemia celular. Vital en la valoración y administración de medicación en diabetes.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-2xs">
+                                <div class="font-bold text-blue-800 mb-1">Hemoglobina</div>
+                                <p class="text-gray-600">Transporte de oxígeno desde los alvéolos a los tejidos. Clave en anemias y valoración respiratoria.</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-2xs">
+                                <div class="font-bold text-amber-800 mb-1">Anticuerpos</div>
+                                <p class="text-gray-600">Defensa inmunológica frente a patógenos externos. Fundamentales en control de infecciones y vacunas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 3: MÓDULO 3: COMPLEMENTARIEDAD -->
+            <div id="tab-mod3" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 3</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">La Regla de Complementariedad de Bases</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod4')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1 self-start sm:self-auto">
+                            Siguiente Módulo <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        El ADN adopta la forma de una doble hélice gracias a los puentes de hidrógeno que unen las bases nitrogenadas de ambas cadenas opuestas. Este apareamiento no ocurre al azar, sino bajo una estricta regla bioquímica.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-blue-50/70 p-6 rounded-2xl border border-blue-200 flex flex-col justify-center items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-blue-200 text-blue-900 flex items-center justify-center text-2xl font-bold mb-3 shadow-inner font-mono">
+                                A ⟷ T
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-1 text-sm">Adenina con Timina</h3>
+                            <p class="text-xs text-gray-600">
+                                Siempre se unen mediante <strong>2 puentes de hidrógeno</strong>. La presencia de Adenina en una hebra exige imperativamente una Timina en la hebra complementaria.
+                            </p>
+                        </div>
+
+                        <div class="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-200 flex flex-col justify-center items-center text-center">
+                            <div class="w-16 h-16 rounded-full bg-emerald-200 text-emerald-900 flex items-center justify-center text-2xl font-bold mb-3 shadow-inner font-mono">
+                                C ⟷ G
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-1 text-sm">Citosina con Guanina</h3>
+                            <p class="text-xs text-gray-600">
+                                Siempre se unen mediante <strong>3 puentes de hidrógeno</strong>. La Citosina es estrictamente complementaria a la Guanina, garantizando gran estabilidad estructural.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Ensamblador Interactivo de Hebras -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-flask-vial text-[#436600]"></i> Ensamblador Interactivo de Hebra Complementaria
+                            </h3>
+                            <span class="text-[10px] font-bold bg-[#f1f6eb] text-[#436600] px-2.5 py-0.5 rounded border border-[#436600]/20">Laboratorio Molecular</span>
+                        </div>
+                        <p class="text-xs text-gray-600">
+                            Aplica la regla A-T y C-G seleccionando la base correspondiente para cada posición de la hebra molde:
+                        </p>
+
+                        <!-- Hebra Molde -->
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                            <span class="text-[10px] font-bold uppercase text-gray-400 block tracking-wider">Hebra Molde 5' → 3':</span>
+                            <div class="flex gap-2.5">
+                                <div class="w-11 h-11 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center font-mono text-base shadow-2xs">A</div>
+                                <div class="w-11 h-11 rounded-lg bg-amber-600 text-white font-bold flex items-center justify-center font-mono text-base shadow-2xs">C</div>
+                                <div class="w-11 h-11 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center font-mono text-base shadow-2xs">T</div>
+                                <div class="w-11 h-11 rounded-lg bg-rose-600 text-white font-bold flex items-center justify-center font-mono text-base shadow-2xs">G</div>
+                                <div class="w-11 h-11 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center font-mono text-base shadow-2xs">A</div>
+                            </div>
+                        </div>
+
+                        <!-- Hebra Complementaria Interactiva -->
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                            <span class="text-[10px] font-bold uppercase text-gray-400 block tracking-wider">Hebra Complementaria 3' → 5':</span>
+                            <div class="flex gap-2.5">
+                                <select id="comp-0" onchange="verifyStrand()" class="w-11 h-11 rounded-lg border-2 border-gray-300 font-bold text-center text-sm font-mono focus-accent">
+                                    <option value="">?</option>
+                                    <option value="A">A</option>
+                                    <option value="T">T</option>
+                                    <option value="C">C</option>
+                                    <option value="G">G</option>
+                                </select>
+                                <select id="comp-1" onchange="verifyStrand()" class="w-11 h-11 rounded-lg border-2 border-gray-300 font-bold text-center text-sm font-mono focus-accent">
+                                    <option value="">?</option>
+                                    <option value="A">A</option>
+                                    <option value="T">T</option>
+                                    <option value="C">C</option>
+                                    <option value="G">G</option>
+                                </select>
+                                <select id="comp-2" onchange="verifyStrand()" class="w-11 h-11 rounded-lg border-2 border-gray-300 font-bold text-center text-sm font-mono focus-accent">
+                                    <option value="">?</option>
+                                    <option value="A">A</option>
+                                    <option value="T">T</option>
+                                    <option value="C">C</option>
+                                    <option value="G">G</option>
+                                </select>
+                                <select id="comp-3" onchange="verifyStrand()" class="w-11 h-11 rounded-lg border-2 border-gray-300 font-bold text-center text-sm font-mono focus-accent">
+                                    <option value="">?</option>
+                                    <option value="A">A</option>
+                                    <option value="T">T</option>
+                                    <option value="C">C</option>
+                                    <option value="G">G</option>
+                                </select>
+                                <select id="comp-4" onchange="verifyStrand()" class="w-11 h-11 rounded-lg border-2 border-gray-300 font-bold text-center text-sm font-mono focus-accent">
+                                    <option value="">?</option>
+                                    <option value="A">A</option>
+                                    <option value="T">T</option>
+                                    <option value="C">C</option>
+                                    <option value="G">G</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="comp-feedback" class="p-3.5 rounded-xl border text-xs font-semibold hidden"></div>
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-xl border border-gray-200 mt-4">
+                        <h3 class="font-bold text-gray-900 mb-1 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-copy text-blue-700"></i> Importancia Biológica y Clínica
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Esta regla matemática y química permite que el ADN se <strong>autocopie de forma fiel (replicación)</strong> cada vez que una célula se divide. Para el profesional de enfermería, entender esto es la base para comprender la transmisión hereditaria de patologías y los mecanismos de acción de fármacos antineoplásicos o antivirales que actúan sobre los ácidos nucleicos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 4: MÓDULO 4: ¿QUÉ ES UN GEN? -->
+            <div id="tab-mod4" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 4</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-900">¿Qué es un Gen? La Unidad Funcional de la Herencia</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod5')" class="text-xs font-semibold text-[#436600] hover:text-[#324d00] flex items-center gap-1 self-start sm:self-auto">
+                            Siguiente Módulo <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                        Si el ADN completo es un gigantesco libro de instrucciones o manual médico, un <strong>gen</strong> es un fragmento o región específica de esa cadena que contiene la receta exacta para sintetizar una proteína determinada o un rasgo hereditario.
+                    </p>
+
+                    <!-- Metáfora Pedagógica -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-gray-200 text-center">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mx-auto text-xl font-bold mb-3">
+                                <i class="fa-solid fa-book"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">El Libro</h3>
+                            <p class="text-xs text-gray-500">La molécula completa de ADN en el núcleo celular.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-gray-200 text-center">
+                            <div class="w-12 h-12 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center mx-auto text-xl font-bold mb-3">
+                                <i class="fa-solid fa-paragraph"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">El Párrafo o Capítulo</h3>
+                            <p class="text-xs text-gray-500">El <strong>Gen</strong>: región específica con información funcional.</p>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-gray-200 text-center">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-xl font-bold mb-3">
+                                <i class="fa-solid fa-gear"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm mb-1">El Producto</h3>
+                            <p class="text-xs text-gray-500">La proteína resultante que cumple una función vital.</p>
+                        </div>
+                    </div>
+
+                    <!-- Selector Interactivo de Genes Clínicos -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-stethoscope text-[#436600]"></i> Correlación Gen-Proteína en la Práctica Clínica
+                            </h3>
+                            <span class="text-[10px] font-bold bg-[#f1f6eb] text-[#436600] px-2.5 py-0.5 rounded border border-[#436600]/20">Interactivo</span>
+                        </div>
+                        <p class="text-xs text-gray-600">
+                            Haz clic en cada gen para analizar cómo su alteración molecular orienta el juicio de enfermería:
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button onclick="showGeneExample('insulina')" id="gbtn-insulina" class="p-3.5 rounded-xl border text-left transition font-semibold text-xs bg-[#f1f6eb] border-[#436600] text-[#436600] shadow-2xs">
+                                Gen de la Insulina
+                            </button>
+                            <button onclick="showGeneExample('hemoglobina')" id="gbtn-hemoglobina" class="p-3.5 rounded-xl border text-left transition font-semibold text-xs bg-white border-gray-200 text-gray-700 hover:bg-gray-50">
+                                Gen de la Hemoglobina
+                            </button>
+                            <button onclick="showGeneExample('anticuerpos')" id="gbtn-anticuerpos" class="p-3.5 rounded-xl border text-left transition font-semibold text-xs bg-white border-gray-200 text-gray-700 hover:bg-gray-50">
+                                Genes de Inmunoglobulinas
+                            </button>
+                        </div>
+
+                        <div id="gene-detail-card" class="p-4 bg-white rounded-xl border border-gray-200 text-xs text-gray-700 space-y-2">
+                            <!-- Inyectado por JS -->
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl mt-4">
+                        <h3 class="font-bold text-emerald-900 text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved"></i> Relevancia en la Práctica de Enfermería
+                        </h3>
+                        <p class="text-xs text-emerald-800 leading-relaxed">
+                            Mutaciones o alteraciones en genes específicos explican diversas patologías hereditarias. El conocimiento de los genes permite al enfermero comprender por qué ciertos pacientes presentan mayor vulnerabilidad frente a determinadas patologías y destaca la importancia de una anamnesis familiar rigurosa en el ingreso hospitalario.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 5: MÓDULO 5: SÍNTESIS Y LABORATORIO -->
+            <div id="tab-mod5" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
+                    <div class="border-b border-gray-100 pb-4 mb-6">
+                        <span class="text-xs uppercase tracking-wider text-[#436600] font-bold">Módulo 5</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Síntesis Disciplinar y Laboratorio de Valoración</h2>
+                        <p class="text-xs sm:text-sm text-gray-500 mt-1">Matriz comparativa de biología molecular y caso asistencial guiado para la práctica enfermera.</p>
+                    </div>
+
+                    <!-- Matriz de Conceptos Clave -->
+                    <div class="overflow-x-auto mb-6">
+                        <table class="w-full text-left text-xs border border-gray-200 rounded-xl overflow-hidden">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-gray-700 font-bold uppercase text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3">Concepto Biológico</th>
+                                    <th class="p-3">Estructura y Composición</th>
+                                    <th class="p-3">Regla / Propiedad</th>
+                                    <th class="p-3">Aplicación Práctica en Enfermería</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-gray-600">
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Nucleótido</td>
+                                    <td class="p-3">Fosfato + Desoxirribosa + Base nitrogenada</td>
+                                    <td class="p-3">Unidad monomérica fundamental</td>
+                                    <td class="p-3">Comprensión del ATP como motor celular de signos vitales.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Complementariedad</td>
+                                    <td class="p-3">A-T (2 puentes H) y C-G (3 puentes H)</td>
+                                    <td class="p-3">Apareamiento estricto y unívoco</td>
+                                    <td class="p-3">Replicación celular fiel; base de fármacos oncológicos.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Gen</td>
+                                    <td class="p-3">Secuencia codificante en el ADN nuclear</td>
+                                    <td class="p-3">Unidad de información y herencia</td>
+                                    <td class="p-3">Receta de proteínas esenciales (insulina, hemoglobina).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Genética Clínica</td>
+                                    <td class="p-3">Árbol genealógico y anamnesis familiar</td>
+                                    <td class="p-3">Herencia y variabilidad individual</td>
+                                    <td class="p-3">Detección precoz de riesgos crónicos y educación.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Laboratorio Clínico: Caso Asistencial de Admisión -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200 space-y-4 mb-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-hospital-user text-amber-600"></i> Laboratorio Clínico: Análisis de Antecedentes Familiares
+                            </h3>
+                            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded">Caso Guiado</span>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-gray-200 text-xs text-gray-700 leading-relaxed space-y-2">
+                            <strong class="text-gray-900 block text-xs uppercase tracking-wide">Situación Asistencial en Admisión:</strong>
+                            <p>
+                                Ingresa a la sala de espera un paciente varón de 42 años para control preventivo de rutina, asintomático. Durante la entrevista de enfermería, menciona que su padre falleció a los 46 años por infarto agudo de miocardio y su hermano mayor fue intervenido de urgencia con bypass coronario a los 40 años.
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 text-xs text-emerald-950 leading-relaxed space-y-1.5">
+                            <strong class="text-emerald-900 block font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-check text-emerald-600"></i> Juicio y Actuación Enfermera UCCuyo:
+                            </strong>
+                            <p>
+                                1º) <strong>Registro fidedigno en el árbol familiar:</strong> Consignar la cardiopatía isquémica prematura en familiares de primer grado como antecedente de alto riesgo genético.<br>
+                                2º) <strong>Educación sobre factores modificables:</strong> Promover el control estricto de presión arterial, lípidos plasmáticos, cese de tabaco y dieta cardioprotectora para contrarrestar la predisposición hereditaria.<br>
+                                3º) <strong>Alerta interdisciplinaria:</strong> Notificar al equipo médico para priorizar una valoración cardiológica especializada con electrocardiograma y perfil bioquímico completo.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Decálogo Ético-Genético UCCuyo -->
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-gray-200 space-y-2 text-xs text-gray-700">
+                        <h4 class="font-bold text-gray-900 flex items-center gap-1.5 text-xs sm:text-sm">
+                            <i class="fa-solid fa-list-check text-[#436600]"></i> Principios Rectores para el Aspirante UCCuyo
+                        </h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-gray-600 leading-relaxed">
+                            <li><strong>Confidencialidad Genética:</strong> Los antecedentes familiares son datos sensibles protegidos por el secreto profesional y la bioética médica.</li>
+                            <li><strong>Evitar el Determinismo Fatalista:</strong> Una predisposición genética no es una condena ineludible; el cuidado enfermero empodera al paciente en la prevención activa.</li>
+                            <li><strong>Comunicación Empática:</strong> Informar sobre riesgos familiares sin generar pánico, respetando los tiempos emocionales y las creencias de la persona.</li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center mt-6">
+                        <button onclick="switchTab('tab-mod4')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-chevron-left"></i> Módulo 4
+                        </button>
+                        <button onclick="switchTab('tab-inicio')" class="bg-[#436600] hover:bg-[#324d00] text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-house"></i> <span>Volver a la Presentación</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal: Guía de Uso del Simulador -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-xl border border-gray-200 flex flex-col max-h-[90vh] overflow-hidden animate-fadeIn">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-5 bg-accent rounded-full inline-block"></span>
+                    <h3 class="text-base font-bold text-gray-800">Guía de Uso del Simulador</h3>
+                </div>
+                <button onclick="closeTutorial()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="overflow-y-auto custom-scroll pr-2 my-3 space-y-3.5 text-xs text-slate-600 leading-relaxed max-h-[460px]">
+                <!-- Propósito y Marco Académico Institucional -->
+                <div class="p-3.5 bg-accent-light/70 rounded-xl border border-accent/25">
+                    <strong class="text-accent block mb-1 font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-sm"></i> Propósito del Simulador
+                    </strong>
+                    Este entorno interactivo ha sido desarrollado para aspirantes a la <strong>Licenciatura en Enfermería de la Facultad de Ciencias Médicas (Universidad Católica de Cuyo - San Juan)</strong>. Su objetivo es consolidar con máximo rigor biológico y traslación clínica los fundamentos de la genética moderna: la arquitectura molecular del ADN y los nucleótidos, el ATP como moneda energética, la ley biofísica de complementariedad de bases nitrogenadas, la naturaleza del gen como unidad funcional codificante de proteínas esenciales (insulina, hemoglobina, anticuerpos) y la relevancia directa de la genética en el juicio clínico enfermero (anamnesis familiar, identificación de factores de riesgo, educación y cuidados personalizados).
+                </div>
+
+                <!-- Modos de Navegación y Usabilidad -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-compass text-sm"></i> Navegación y Herramientas Interactivas
+                    </strong>
+                    <ul class="space-y-1.5 text-[11.5px] text-gray-600 pl-1">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-bars text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Menú Lateral Modular:</strong> Permite alternar instantáneamente entre la Presentación General y los 5 módulos temáticos teóricos sin recargar la página.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-arrows-left-right text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Botones de Avance Lineal (Anterior / Siguiente):</strong> Ubicados al pie de cada módulo para guiar una lectura pedagógica secuencial y progresiva.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-dna text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Ensamblador de Hebra Complementaria (Módulo 3):</strong> Herramienta de experimentación molecular interactiva donde el estudiante selecciona los pares complementarios y recibe validación inmediata según la regla de Chargaff y los puentes de hidrógeno.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-microchip text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Explorador Dinámico de Genes y Proteínas (Módulo 4):</strong> Permite conmutar fichas moleculares para examinar la relación entre genes específicos, la proteína sintetizada y su impacto en el juicio de enfermería.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Desglose Módulo por Módulo con todas las características -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2.5">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark text-sm"></i> Contenido Temático y Clínico por Módulo:
+                    </strong>
+                    <ul class="space-y-2.5 text-[11px] text-gray-600 pl-1">
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">Presentación General:</strong>
+                            Introducción al paradigma de la enfermería genómica. Ejes formativos clave: arquitectura molecular, leyes de apareamiento estricto, expresión génica de proteínas funcionales y anamnesis clínica preventiva en el ámbito hospitalario y comunitario.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">1. Genética en Enfermería (Herencia y Variabilidad):</strong>
+                            Definición de genética, distinción entre genotipo y fenotipo, y los 3 pilares del rol asistencial enfermero:
+                            <div class="mt-1 pl-2 border-l-2 border-accent space-y-0.5 text-gray-700">
+                                <div>• <em>Valoración de Riesgos y Anamnesis:</em> Relevamiento sistemático del profesiograma familiar en la entrevista de admisión para identificar predisposiciones tempranas.</div>
+                                <div>• <em>Educación y Apoyo Emocional:</em> Acompañamiento ante el diagnóstico y erradicación de mitos fatalistas.</div>
+                                <div>• <em>Atención Personalizada y Holística:</em> Adaptación de intervenciones, dietoterapia y farmacovigilancia considerando la singularidad biológica del paciente.</div>
+                            </div>
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">2. Arquitectura del ADN y Nucleótidos:</strong>
+                            Localización intranuclear de la cromatina y desglose de la subunidad fundamental (nucleótido: pentosa desoxirribosa, grupo fosfato cargado negativamente y base nitrogenada). El abecedario biológico (A, T, C, G), clasificación química en purinas y pirimidinas, el ATP como nucleótido modificado trifosfatado clave para el metabolismo celular, y el repertorio de proteínas esenciales codificadas (insulina, hemoglobina y anticuerpos).
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">3. Complementariedad de Bases y Ensamblador Molecular:</strong>
+                            Leyes de apareamiento estricto de Watson, Crick y Chargaff: Adenina con Timina (mediada por 2 puentes de hidrógeno) y Citosina con Guanina (mediada por 3 puentes de hidrógeno). Incorpora el <strong>Ensamblador Interactivo de Hebras</strong> para contrastar la hebra molde con la hebra replicada, analizando la importancia del apareamiento fiel en la división celular y la prevención de errores mutacionales.
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">4. El Gen como Unidad Funcional:</strong>
+                            Conceptualización del gen como locus específico en la cadena de ADN y la analogía pedagógica del "manual de instrucciones celular" (genoma como libro, cromosomas como capítulos, genes como párrafos/recetas y bases como letras). Incluye el <strong>Explorador de Genes Clínicos</strong> interactivo con fichas de Insulina (diabetes mellitus), Hemoglobina (anemias hereditarias e hipoxemia) e Inmunoglobulinas (inmunidad y vacunas).
+                        </li>
+                        <li>
+                            <strong class="text-gray-900 block text-xs">5. Síntesis Disciplinar y Laboratorio de Admisión:</strong>
+                            Matriz comparativa de conceptos nucleares, estudio de caso clínico guiado de enfermería (paciente con antecedentes precoces de cardiopatía y diabetes) con conducta profesional de triaje, y decálogo bioético de confidencialidad, no estigmatización y consentimiento informado.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Consejos Pedagógicos UCCuyo -->
+                <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                    <strong class="block font-bold text-amber-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-700"></i> Recomendaciones Pedagógicas UCCuyo:
+                    </strong>
+                    <p>
+                        1. Al repasar la complementariedad, recuerda la mnemotecnia biofísica: <strong>A</strong>-<strong>T</strong> (2 enlaces puente de H) y <strong>C</strong>-<strong>G</strong> (3 enlaces puente de H).<br>
+                        2. Identifica al ATP no solo como "energía", sino como un nucleótido especializado de adenosina con tres fosfatos de alta energía.<br>
+                        3. En el ejercicio clínico de enfermería, los antecedentes familiares no son un mero trámite administrativo, sino la primera herramienta de protección y prevención primaria para la salud del paciente.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-[10.5px] text-gray-400 font-medium">UCCuyo • Ciencias Biológicas en Salud</span>
+                <button onclick="closeTutorial()" class="bg-primary text-white font-semibold py-2 px-5 rounded-lg text-xs hover:opacity-90 transition shadow-sm">
+                    Entendido, Comenzar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Institucional Estándar -->
+    <footer class="bg-white border-t border-gray-200 mt-6">
+        <div class="max-w-6xl mx-auto px-4 py-3 text-center text-xs text-gray-500 font-semibold tracking-wide">
+            Desarrollado por vesalio - Todos los derechos reservados
+        </div>
+    </footer>
+
+    <!-- Script de Lógica Interactiva y Navegación -->
+    <script>
+        // Modal Tutorial
+        function openTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.remove('hidden');
+        }
+        function closeTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.add('hidden');
+        }
+
+        window.addEventListener('click', function(e) {
+            const m = document.getElementById('tutorial-modal');
+            if (e.target === m) closeTutorial();
+        });
+
+        // Navegación fluida entre pestañas temáticas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            const tabIds = ['tab-inicio', 'tab-mod1', 'tab-mod2', 'tab-mod3', 'tab-mod4', 'tab-mod5'];
+            tabIds.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = 'bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-[#436600]');
+                            icon.classList.add('text-white');
+                        }
+                    } else {
+                        btn.className = 'text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-white');
+                            icon.classList.add('text-[#436600]');
+                        }
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // MÓDULO 3: SIMULADOR DE COMPLEMENTARIEDAD
+        // Molde: A - C - T - G - A -> Debe ser: T - G - A - C - T
+        // ==========================================
+        function verifyStrand() {
+            const s0 = document.getElementById('comp-0').value;
+            const s1 = document.getElementById('comp-1').value;
+            const s2 = document.getElementById('comp-2').value;
+            const s3 = document.getElementById('comp-3').value;
+            const s4 = document.getElementById('comp-4').value;
+
+            const feedback = document.getElementById('comp-feedback');
+            if (!s0 || !s1 || !s2 || !s3 || !s4) {
+                feedback.classList.add('hidden');
+                return;
+            }
+
+            feedback.classList.remove('hidden');
+            if (s0 === 'T' && s1 === 'G' && s2 === 'A' && s3 === 'C' && s4 === 'T') {
+                feedback.className = "p-3.5 rounded-xl border text-xs font-semibold bg-emerald-50 border-emerald-200 text-emerald-900 shadow-2xs";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i> ¡Hebra Complementaria Exacta! Has aplicado con éxito el principio de Chargaff: A-T (2 enlaces) y C-G (3 enlaces).`;
+            } else {
+                feedback.className = "p-3.5 rounded-xl border text-xs font-semibold bg-amber-50 border-amber-200 text-amber-900 shadow-2xs";
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1.5"></i> Hay bases no complementarias en tu secuencia. Recuerda: A se une siempre con T, y C con G.`;
+            }
+        }
+
+        // ==========================================
+        // MÓDULO 4: GENES Y PROTEÍNAS CLÍNICAS
+        // ==========================================
+        const geneData = {
+            insulina: {
+                title: "Gen de la Insulina (Cromosoma 11p15.5)",
+                protein: "Hormona Proteica Insulina (51 aminoácidos)",
+                role: "Permite la captación celular de glucosa circulante y previene la hiperglucemia.",
+                nursing: "En la valoración del paciente diabético, comprender este gen permite explicar al sujeto por qué en la Diabetes Tipo 1 hay una destrucción autoinmune absoluta de las células beta productoras, haciendo indispensable el tratamiento sustitutivo con insulina exógena."
+            },
+            hemoglobina: {
+                title: "Genes de Globinas (HBA y HBB)",
+                protein: "Tetrámero de Hemoglobina (4 cadenas polipeptídicas)",
+                role: "Fijación y transporte reversible de oxígeno desde el alvéolo pulmonar hacia los tejidos periféricos.",
+                nursing: "En anemias hereditarias (como la talasemia o anemia falciforme por mutación puntual en la cadena beta), el enfermero detecta signos de hipoxemia tisular, fatiga extrema y palidez cutánea, vigilando la saturometría y la tolerancia al esfuerzo."
+            },
+            anticuerpos: {
+                title: "Genes de Inmunoglobulinas (IgG, IgM, IgA, IgE)",
+                protein: "Anticuerpos circulantes producidos por linfocitos B y células plasmáticas",
+                role: "Reconocimiento y neutralización específica de antígenos virales, bacterianos o toxinas.",
+                nursing: "Esencial en la administración segura de vacunas (inmunización activa) y en la administración de gammaglobulinas (inmunización pasiva), así como en el monitoreo de pacientes inmunosuprimidos propensos a infecciones intrahospitalarias."
+            }
+        };
+
+        function showGeneExample(key) {
+            const keys = ['insulina', 'hemoglobina', 'anticuerpos'];
+            keys.forEach(k => {
+                const b = document.getElementById('gbtn-' + k);
+                if (b) {
+                    if (k === key) {
+                        b.className = "p-3.5 rounded-xl border text-left transition font-semibold text-xs bg-[#f1f6eb] border-[#436600] text-[#436600] shadow-2xs";
+                    } else {
+                        b.className = "p-3.5 rounded-xl border text-left transition font-semibold text-xs bg-white border-gray-200 text-gray-700 hover:bg-gray-50";
+                    }
+                }
+            });
+
+            const data = geneData[key];
+            const card = document.getElementById('gene-detail-card');
+            if (card && data) {
+                card.innerHTML = `
+                    <div class="border-b border-gray-100 pb-2">
+                        <span class="text-[10px] font-bold uppercase text-[#436600] bg-[#f1f6eb] px-2 py-0.5 rounded">Ficha Molecular</span>
+                        <h4 class="font-bold text-gray-900 text-sm mt-1">${data.title}</h4>
+                    </div>
+                    <p><strong>Proteína Codificada:</strong> ${data.protein}</p>
+                    <p><strong>Función Fisiológica:</strong> ${data.role}</p>
+                    <div class="p-3 bg-[#f1f6eb]/80 rounded-xl border border-[#436600]/20 text-[11.5px] text-[#436600] font-medium leading-relaxed mt-2">
+                        <strong>Impacto en Juicio Enfermero:</strong> ${data.nursing}
+                    </div>
+                `;
+            }
+        }
+
+        // Inicialización al cargar la ventana
+        window.onload = function() {
+            showGeneExample('insulina');
+        };
+    </script>
+</body>
+</html>
